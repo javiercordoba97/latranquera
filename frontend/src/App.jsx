@@ -1,19 +1,19 @@
+import { Routes, Route } from "react-router-dom";
+import Home from "./views/Home";
+import Producto from "./views/Producto";
+import Categoria from "./views/Categoria";
 import ChatBox from "./components/ChatBox";
-import Home from "../Home";
-import { useState } from "react";
 
 export default function App() {
-  const [open, setOpen] = useState(false);
-
   return (
     <>
-      <Home />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/producto/:id" element={<Producto />} />
+        <Route path="/categoria/:categoria" element={<Categoria />} />
+      </Routes>
 
-      <div className="chat-bubble" onClick={() => setOpen(!open)}>
-        💬
-      </div>
-
-      {open && <ChatBox />}
+      <ChatBox />
     </>
   );
 }

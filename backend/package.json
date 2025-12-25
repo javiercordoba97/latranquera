@@ -1,0 +1,10 @@
+{
+  "name": "llaqta-backend",
+  "version": "1.0.0",
+  "dependencies": {
+    "uvicorn": "^0.0.1-security"
+  },
+  "scripts": {
+    "back": "python -m uvicorn app.main:app --reload"
+  }
+}

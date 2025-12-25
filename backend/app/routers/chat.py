@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from app.store_data import PRODUCTS, STORE_INFO
+from app.data.store_data import PRODUCTS, STORE_INFO
 from app.services.llm_service import generate_llm_response
 
 router = APIRouter()
