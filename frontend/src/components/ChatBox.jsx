@@ -7,11 +7,12 @@ export default function ChatBox() {
   const [messages, setMessages] = useState([]);
 
   // Saludo inicial del bot
-useEffect(() => {
-  setMessages([
-    { from: "bot", text: "Hola, soy LlaqtaBot ¿en qué te puedo ayudar? 😊" }
-  ]);
-}, []);
+  useEffect(() => {
+    setMessages([
+      { from: "bot", text: "Hola, soy LlaqtaBot ¿en qué te puedo ayudar?" }
+    ]);
+  }, []);
+
   const handleSend = async (text) => {
     // Mostrar mensaje del usuario
     setMessages((prev) => [...prev, { from: "user", text }]);
@@ -21,18 +22,11 @@ useEffect(() => {
 
     let botText = "";
 
-    // Caso 1: nutrición
     if (response.type === "nutrition") {
       botText = JSON.stringify(response.data, null, 2);
-    }
-
-    // Caso 2: general
-    else if (response.type === "general") {
+    } else if (response.type === "general") {
       botText = response.data;
-    }
-
-    // Caso 3: error
-    else {
+    } else {
       botText = "Hubo un error interpretando la respuesta del modelo.";
     }
 
@@ -41,10 +35,12 @@ useEffect(() => {
   };
 
   return (
-    <div className="chatbox">
-      {messages.map((msg, i) => (
-        <Message key={i} from={msg.from} text={msg.text} />
-      ))}
+    <div className="chatbox-content">
+      <div className="chatbox-messages">
+        {messages.map((msg, i) => (
+          <Message key={i} from={msg.from} text={msg.text} />
+        ))}
+      </div>
 
       <InputBox onSend={handleSend} />
     </div>
