@@ -32,8 +32,6 @@
   display: flex;
   gap: 10px;
   margin-top: auto;
-  margin-bottom: 10px;
-  padding: 10px;
 }
 
 .input-box input {
@@ -69,17 +67,4 @@
   cursor: pointer;
   font-size: 24px;
   z-index: 9999;
-}
-.chatbox-messages {
-  flex: 1;                 /* empuja el input hacia abajo */
-  overflow-y: auto;
-  padding: 20px;           /* separa los mensajes del borde */
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.chatbox-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%; /* importante */
 }

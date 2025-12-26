@@ -9,7 +9,7 @@ export default function ChatBox() {
   // Saludo inicial del bot
   useEffect(() => {
     setMessages([
-      { from: "bot", text: "Hola, bienvenido a La Tranquera ¿en qué te puedo ayudar?" }
+      { from: "bot", text: "Hola, soy LlaqtaBot ¿en qué te puedo ayudar?" }
     ]);
   }, []);
 
