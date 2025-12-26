@@ -23,7 +23,7 @@ export default function Producto() {
 
   return (
     <div className="product-page">
-      <h1>{producto.nombre}</h1>
+      <h2>{producto.nombre}</h2>
 
       <img
         src={getImage(producto.imagen)}

@@ -88,7 +88,7 @@ def productos_por_categoria(categoria):
 # ============================
 
 MENU_PRINCIPAL = """
-¿Qué necesitás?
+¿Qué andabas buscando?
 
 1) Ver horarios
 2) Ver sucursales

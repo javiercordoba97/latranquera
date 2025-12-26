@@ -24,7 +24,7 @@ export default function Home() {
   return (
     <div className="home-container">
 
-      <h2 className="section-title">Categorías</h2>
+      <h2 className="section-title">Nuestros Productos</h2>
 
       {/* GRID DE 4 COLUMNAS */}
       <div className="product-grid">

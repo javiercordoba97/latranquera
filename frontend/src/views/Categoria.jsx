@@ -21,9 +21,9 @@ export default function Categoria() {
   return (
     <div className="category-page">
 
-      <h1 style={{ textTransform: "capitalize" }}>
+      <h2 style={{ textTransform: "capitalize" }}>
         {categoria}
-      </h1>
+      </h2>
 
       {filtered.length === 0 && (
         <p>No hay productos en esta categoría.</p>
