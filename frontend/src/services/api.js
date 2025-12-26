@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000";
+const API_URL = "https://latranquera.onrender.com";
 
 // Generamos un user_id único por sesión del navegador
 let USER_ID = localStorage.getItem("llaqta_user_id");
