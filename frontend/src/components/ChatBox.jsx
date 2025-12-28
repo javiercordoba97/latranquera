@@ -9,7 +9,7 @@ export default function ChatBox() {
   // Saludo inicial del bot
   useEffect(() => {
     setMessages([
-      { from: "bot", text: "Hola, soy LlaqtaBot ¿en qué te puedo ayudar?" }
+      { from: "bot", text: "Hola, soy el asistente de La Tranquera. ¿En qué te puedo ayudar?" }
     ]);
   }, []);
 
@@ -22,13 +22,8 @@ export default function ChatBox() {
 
     let botText = "";
 
-    if (response.type === "nutrition") {
-      botText = JSON.stringify(response.data, null, 2);
-    } else if (response.type === "general") {
-      botText = response.data;
-    } else {
-      botText = "Hubo un error interpretando la respuesta del modelo.";
-    }
+    // El backend siempre devuelve { type: "...", data: "..." }
+    botText = response.data || "Hubo un error interpretando la respuesta del modelo.";
 
     // Mostrar mensaje del bot
     setMessages((prev) => [...prev, { from: "bot", text: botText }]);

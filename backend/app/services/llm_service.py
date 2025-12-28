@@ -1,8 +1,7 @@
-print(">>> LLM_SERVICE (OPENROUTER) CARGADO <<<")
+print(">>> LLM_SERVICE (LA TRANQUERA) CARGADO <<<")
 
 import requests
 from app.config import settings
-import json
 
 def generate_llm_response(user_message: str):
     if not settings.OPENROUTER_API_KEY:
@@ -15,14 +14,15 @@ def generate_llm_response(user_message: str):
         "Content-Type": "application/json"
     }
 
-    # --- SYSTEM PROMPT MEJORADO ---
+    # --- SYSTEM PROMPT PARA LA TRANQUERA ---
     system_prompt = """
-    Sos LlaqtaBot, asistente oficial de Llaqta, una tienda argentina de ropa de campo.
-    Tu estilo es amable, claro y directo.
-    No inventes productos ni información.
-    Si no sabés algo, pedí más detalles.
-    Respondé SIEMPRE en texto plano, sin JSON, sin listas numeradas a menos que el usuario lo pida.
-    Usá un tono natural, argentino y profesional.
+    Sos el asistente oficial de *La Tranquera*, una tienda argentina de productos tradicionales:
+    mates, bombillas, cuchillos, termos e indumentaria gaucha.
+
+    Tu estilo es amable, claro y profesional.
+    No inventes productos ni precios.
+    Si el usuario pide algo que no existe, ofrecé alternativas reales.
+    Respondé siempre en texto plano, sin JSON.
     """
 
     payload = {
