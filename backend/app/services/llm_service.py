@@ -1,22 +1,21 @@
-print(">>> LLM_SERVICE (LA TRANQUERA) CARGADO <<<")
-
+import asyncio
 import requests
 from app.config import settings
 
-def generate_llm_response(user_message: str):
+
+def _llm_sync(user_message: str) -> str:
     if not settings.OPENROUTER_API_KEY:
-        return {"error": "No se encontró la clave de API de OpenRouter"}
+        return "El asistente no está configurado (falta OPENROUTER_API_KEY en el servidor)."
 
     url = "https://openrouter.ai/api/v1/chat/completions"
 
     headers = {
         "Authorization": f"Bearer {settings.OPENROUTER_API_KEY}",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
     }
 
-    # --- SYSTEM PROMPT PARA LA TRANQUERA ---
     system_prompt = """
-    Sos el asistente oficial de *La Tranquera*, una tienda argentina de productos tradicionales:
+    Sos el asistente oficial de La Tranquera, una tienda argentina de productos tradicionales:
     mates, bombillas, cuchillos, termos e indumentaria gaucha.
 
     Tu estilo es amable, claro y profesional.
@@ -27,23 +26,31 @@ def generate_llm_response(user_message: str):
 
     payload = {
         "model": settings.DEFAULT_LLM_MODEL,
+        "max_tokens": 400,
+        "temperature": 0.6,
         "messages": [
             {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_message}
-        ]
+            {"role": "user", "content": user_message},
+        ],
     }
 
-    response = requests.post(url, headers=headers, json=payload)
+    try:
+        response = requests.post(
+            url, headers=headers, json=payload, timeout=(10, 45)
+        )
+    except requests.RequestException as e:
+        return f"No pude contactar al servicio de respuestas. Intentá de nuevo en un momento. ({e!s})"
 
     if response.status_code != 200:
-        return {
-            "error": "Error al conectar con OpenRouter",
-            "details": response.text
-        }
-
-    data = response.json()
+        return "Hubo un error al conectar con el modelo. Probá más tarde o elegí una opción del menú."
 
     try:
-        return data["choices"][0]["message"]["content"]
-    except:
-        return {"error": "No se pudo interpretar la respuesta del modelo."}
+        data = response.json()
+        return data["choices"][0]["message"]["content"].strip()
+    except (KeyError, IndexError, TypeError):
+        return "No se pudo interpretar la respuesta del modelo."
+
+
+async def generate_llm_response(user_message: str) -> str:
+    """Evita bloquear el event loop de FastAPI durante la llamada a OpenRouter."""
+    return await asyncio.to_thread(_llm_sync, user_message)

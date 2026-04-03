@@ -1,11 +1,11 @@
 import { useState } from "react";
 
-export default function InputBox({ onSend }) {
+export default function InputBox({ onSend, disabled = false }) {
   const [text, setText] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!text.trim()) return;
+    if (disabled || !text.trim()) return;
     onSend(text);
     setText("");
   };
@@ -16,6 +16,7 @@ export default function InputBox({ onSend }) {
         type="text"
         placeholder="Escribe tu mensaje..."
         value={text}
+        disabled={disabled}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter" && !e.shiftKey) {
@@ -23,7 +24,9 @@ export default function InputBox({ onSend }) {
           }
         }}
       />
-      <button type="submit">Enviar</button>
+      <button type="submit" disabled={disabled}>
+        Enviar
+      </button>
     </form>
   );
 }
